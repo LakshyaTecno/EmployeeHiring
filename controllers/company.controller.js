@@ -72,6 +72,7 @@ exports.findOne = (req, res) => {
 };
 
 exports.update = (req, res) => {
+  console.log("heere");
   const company = {
     companyName: req.body.companyName,
     email: req.body.email,
@@ -82,14 +83,16 @@ exports.update = (req, res) => {
   const companyId = req.params.companyId;
 
   Company.update(company, {
-    returning: true,
     where: {
       companyId: companyId,
     },
+    returning: true,
   })
     .then((updatedComapany) => {
+      // TO return the updated category
       Company.findByPk(companyId)
         .then((company) => {
+          console.log(company);
           res.status(200).send(company);
         })
         .catch((err) => {
@@ -119,6 +122,7 @@ exports.delete = (req, res) => {
       });
     })
     .catch((err) => {
+      console.log(err);
       res.status(500).send({
         message: "Internal error occured",
       });

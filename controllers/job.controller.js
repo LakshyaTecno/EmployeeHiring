@@ -5,12 +5,12 @@ const Job = model.job;
 exports.create = (req, res) => {
   const job = {
     jobId: req.body.jobId,
-    
     companyId: req.body.companyId,
     title: req.body.title,
     description: req.body.description,
     minQualification: req.body.minQualification,
     salary: req.body.salary,
+    companyCompanyId: req.body.companyId,
   };
   Job.create(job)
     .then((job) => {
@@ -51,18 +51,70 @@ exports.findAll = (req, res) => {
     });
 };
 
+exports.findOne = (req, res) => {
+  const jobId = req.params.jobId;
+  console.log(jobId);
+
+  Job.findByPk(jobId)
+    .then((job) => {
+      res.status(200).send(job);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Internal error occured",
+      });
+    });
+};
+
+exports.update = (req, res) => {
+  console.log("heere");
+  const JOB = {
+    jobId: req.body.jobId,
+    title: req.body.title,
+    description: req.body.description,
+    minQualification: req.body.minQualification,
+    salary: req.body.salary,
+  };
+
+  const jobId = req.params.jobId;
+
+  Job.update(JOB, {
+    where: {
+      jobId: jobId,
+    },
+    returning: true,
+  })
+    .then((updatedJOb) => {
+      // TO return the updated category
+      Job.findByPk(jobId)
+        .then((job) => {
+          console.log(job);
+          res.status(200).send(job);
+        })
+        .catch((err) => {
+          res.status(500).send({
+            message: "Internal error occured",
+          });
+        });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Internal error occured",
+      });
+    });
+};
+
 exports.delete = (req, res) => {
-  const id = req.param.id;
-  console.log(id);
+  const jobId = req.params.jobId;
 
   Job.destroy({
     where: {
-      jobId: id,
+      jobId: jobId,
     },
   })
     .then((result) => {
       res.status(200).send({
-        message: "Job Deleted",
+        message: "Deleted",
       });
     })
     .catch((err) => {

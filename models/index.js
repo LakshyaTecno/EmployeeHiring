@@ -17,25 +17,39 @@ var db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-// db.user = require('./user.model')( sequelize, Sequelize);
-// db.role = require('./role.model')( sequelize, Sequelize);
+db.user = require("./user.model")(sequelize, Sequelize);
 db.company = require("./company.model")(sequelize, Sequelize);
 db.job = require("./job.model")(sequelize, Sequelize);
-//db.student=require("./student.model")(sequelize,Sequelize);
+db.role = require("./role.model")(sequelize, Sequelize);
+db.student = require("./student.model")(sequelize, Sequelize);
 
-// db.role.belongsToMany(db.user, {
-//     through : "user_roles",
-//     foreignKey : "role_id",
-//     otherKey : "user_id"
+db.company.hasMany(db.job); // 1 to many relatioship b/w company and Job
 
-//  });
+// After this line job table added the forgien key in job table as companyCaompanyID
+// After this relationship set up user can not add companyID which is not in the table yet
 
-//  db.user.belongsToMany(db.role, {
-//      through : "user_roles",
-//      foreignKey : "user_id",
-//      otherKey : "role_id"
-//  })
+// db.job.belongsToMany(db.student, {
+//   through: "student_jobs",
+//   foreignKey: "job_id",
+//   otherKey: "student_id",
+// });
 
-//  db.ROLES = ["admin", "student", "company"];
+// db.student.belongsToMany(db.job, {
+//   through: "student_jobs",
+//   foreignKey: "student_id",
+//   otherKey: "job_id",
+// });
+
+db.role.belongsToMany(db.user, {
+  through: "user_roles",
+  foreignKey: "role_id",
+  otherKey: "user_id",
+});
+
+db.user.belongsToMany(db.role, {
+  through: "user_roles",
+  foreignKey: "user_id",
+  otherKey: "role_id",
+});
 
 module.exports = db;

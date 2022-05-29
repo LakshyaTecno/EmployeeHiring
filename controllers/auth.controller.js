@@ -1,25 +1,24 @@
 //  const bcrypt = require('bcryptjs');
- 
+
 //  const db = require('../models');
- 
+
 //  const User = db.user;
 //  const Role = db.role;
 //  const Company=db.company;
 
 //  const Student=db.student
- 
+
 //  const Op = db.Sequelize.Op;
- 
+
 //  const jwt = require('jsonwebtoken');
- 
+
 //  const secretKey = require('../configs/secret.config');
- 
- 
+
 //  /**
 //   * Handler for signup
 //   */
 //  exports.signup = (req, res) => {
- 
+
 //      const userObj = {
 //          id:req.body.id,
 //          name: req.body.name,
@@ -28,7 +27,7 @@
 //          usertype:req.body.usertype
 //     }
 //     const { role } = req.params;
-    
+
 //      User.create(userObj).then(user => {
 
 //         const isEmailExistInAdmins = await Admin.findOne( userObj.email );
@@ -43,7 +42,7 @@
 //          if (role) {
 //              Role.findAll({
 //                  where: {
-//                      name: role // array of roles    
+//                      name: role // array of roles
 //                  }
 //              }).then(role => {
 //                  console.log("role", role);
@@ -54,14 +53,12 @@
 //                          message: "User successfully registed"
 //                      })
 //                  })
- 
+
 //              })
 
-                        
 //             if (role === COMPANY) {
 
-
-//                 const companyObj={            
+//                 const companyObj={
 //                     id:req.body.id,
 //                     name: req.body.name,
 //                     email: req.body.email,
@@ -78,12 +75,10 @@
 //                         message: "Some internal error happened"
 //                     })
 //                 })
-    
-               
+
 //             } else if (role === STUDENT) {
 
-
-//                 const studentObj={            
+//                 const studentObj={
 //                     id:req.body.id,
 //                     name: req.body.name,
 //                     email: req.body.email,
@@ -100,26 +95,20 @@
 //                         message: "Some internal error happened"
 //                     })
 //                 })
-    
-               
+
 //             }
-//          } 
+//          }
 //      }).catch(err=>{
 //          console.log("Error while creating user", err.message);
 //          res.status(500).send({
 //              message : "Some Internal error"
 //          })
 //      })
- 
- 
+
 //  }
- 
- 
- 
- 
+
 //  exports.signin = (req,res)=>{
-     
- 
+
 //      User.findOne({
 //          where : {
 //              email : req.body.email
@@ -131,31 +120,28 @@
 //              })
 //              return;
 //          }
- 
+
 //          //verify the password
 //          var passwordIsValid = bcrypt.compareSync(
 //              req.body.password,
 //              user.password
 //          );
- 
+
 //          if(!passwordIsValid){
 //              res.status(401).send({
 //                  message : "Invalid Password"
 //              })
 //          }
- 
+
 //          /**
 //           * Need to generate the access token
 //           */
 //          var token = jwt.sign({id: user.id} ,secretKey.secret,{
 //              expiresIn : 300 // This again we could have kept in the config file
 //          });
- 
-
 
 //          user.getRoles().then(roles=>{
- 
-             
+
 //              let authority="ROLE_"+roles[i].name.toUpperCase();
 //              res.status(200).send({
 //                  id : user.id,
@@ -164,11 +150,9 @@
 //                  roles : authority,
 //                  accessToken : token
 //              });
-             
+
 //          });
- 
-         
- 
+
 //      }).catch(err=>{
 //          res.status(500).send({
 //              message : "Internal error while signin"
